@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GameDrop — Preview</title>
+<style>
+:root{--bg:#07070b;--card:#101018;--card2:#15151f;--line:#292938;--text:#f8f8fb;--muted:#9494a8;--p:#8b5cf6;--p2:#b45cff;--green:#39d98a}
+*{box-sizing:border-box}body{margin:0;background:#07070b;color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;width:600px;height:600px;right:-180px;top:-300px;background:#722cff30;filter:blur(100px);border-radius:50%;pointer-events:none}
+.wrap{max-width:1180px;margin:auto;padding:0 22px}
+header{height:76px;border-bottom:1px solid #ffffff0d;background:#07070bd9;backdrop-filter:blur(18px);position:sticky;top:0;z-index:10}
+.nav{height:100%;display:flex;align-items:center;justify-content:space-between}.logo{font-size:22px;font-weight:950;letter-spacing:-1px}.logo span{color:#a855f7}
+nav{display:flex;gap:25px}nav button,.account{border:0;background:none;color:#9d9dae;font-weight:600;cursor:pointer}nav button:hover,.account:hover{color:#fff}
+.hero{padding:84px 0 58px;display:grid;grid-template-columns:1.35fr .65fr;gap:45px;align-items:center}.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid #8b5cf633;background:#8b5cf610;color:#ccb9ff;padding:8px 12px;border-radius:999px;font-size:12px}.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+h1{font-size:clamp(50px,7vw,84px);line-height:.92;letter-spacing:-5px;margin:20px 0}.gradient{background:linear-gradient(90deg,#fff,#c29aff);-webkit-background-clip:text;color:transparent}.lead{font-size:18px;line-height:1.65;color:var(--muted);max-width:650px}
+.cta{display:flex;gap:11px;margin-top:27px}.primary{border:0;border-radius:12px;padding:14px 20px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;font-weight:850;cursor:pointer}.secondary{border:1px solid var(--line);border-radius:12px;padding:13px 19px;background:#111119;color:#ddd;cursor:pointer}
+.visual{height:320px;border:1px solid #ffffff12;border-radius:28px;background:linear-gradient(145deg,#171321,#0c0c12);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;box-shadow:0 30px 100px #0008}.visual:before{content:"";position:absolute;width:230px;height:230px;border-radius:50%;background:#8b5cf655;filter:blur(45px)}.cube{position:relative;width:175px;height:175px;border-radius:38px;background:linear-gradient(145deg,#272038,#100e17);border:1px solid #ffffff20;display:grid;place-items:center;font-size:82px;box-shadow:0 25px 60px #0009;transform:rotate(-5deg)}
+.section{padding:38px 0}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:19px}.head h2{font-size:30px;margin:0}.muted{color:var(--muted);font-size:13px}
+.games{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.game{height:205px;border:1px solid var(--line);border-radius:21px;background:linear-gradient(145deg,#15151e,#0d0d13);padding:20px;position:relative;cursor:pointer;transition:.22s;overflow:hidden}.game:hover{transform:translateY(-5px);border-color:#8056cf;box-shadow:0 18px 50px #0007}.game:after{content:"";position:absolute;right:-45px;bottom:-55px;width:130px;height:130px;background:#8b5cf615;border-radius:50%;filter:blur(12px)}.icon{width:70px;height:70px;border-radius:18px;display:grid;place-items:center;font-size:35px;background:#ffffff0b;border:1px solid #ffffff12}.game h3{font-size:19px;margin:16px 0 5px}.arrow{position:absolute;right:19px;bottom:19px;color:#aaa}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.feature{border:1px solid var(--line);border-radius:18px;background:#0f0f16;padding:22px}.feature .big{font-size:23px}.feature b{display:block;margin:10px 0 6px}.feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+.mockshop{border:1px solid var(--line);border-radius:23px;background:#0e0e15;padding:24px}.shopbar{display:flex;justify-content:space-between;align-items:center}.shopbar h2{margin:4px 0 0}.packs{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:21px}.pack{border:1px solid #2b2b39;background:#13131b;border-radius:15px;color:#fff;padding:18px;text-align:left;cursor:pointer}.pack:hover,.pack.active{border-color:#a576ff;background:#1a1526}.pack small{display:block;color:var(--muted);margin:7px 0 17px}.demoform{display:grid;grid-template-columns:1fr auto;gap:11px;margin-top:16px}.demoform input{background:#111119;border:1px solid #2b2b38;color:#fff;border-radius:11px;padding:14px;outline:0}
+.badge{display:inline-block;color:#61e7a1;background:#39d98a12;border:1px solid #39d98a2a;border-radius:8px;padding:6px 9px;font-size:11px}
+footer{margin-top:65px;border-top:1px solid #ffffff0d;padding:28px 0;color:#707080;display:flex;justify-content:space-between;font-size:12px}
+.toast{position:fixed;right:18px;bottom:18px;background:#181820;border:1px solid #3a3a49;border-radius:12px;padding:14px 17px;display:none;z-index:50}
+@media(max-width:850px){nav{display:none}.hero{grid-template-columns:1fr;padding-top:55px}.visual{height:240px}.games,.packs{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:1fr}h1{letter-spacing:-3px}}
+@media(max-width:480px){.wrap{padding:0 15px}.games,.packs{grid-template-columns:1fr}.cta{flex-direction:column}.demoform{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+<div class="logo">GAME<span>DROP</span></div>
+<nav><button onclick="scrollToId('games')">Игры</button><button onclick="scrollToId('catalog')">Каталог</button><button onclick="scrollToId('why')">Почему мы</button></nav>
+<button class="account" onclick="toast('Личный кабинет — в разработке')">Личный кабинет ↗</button>
+</div></header>
+
+<main class="wrap">
+<section class="hero">
+<div>
+<span class="pill"><i class="dot"></i> GAME DROP • ONLINE</span>
+<h1>Твоя игра.<br><span class="gradient">Твой баланс.</span></h1>
+<p class="lead">Быстрое и удобное пополнение игровых аккаунтов. Это визуальный preview будущего GameDrop — без реальных платежей.</p>
+<div class="cta"><button class="primary" onclick="scrollToId('games')">Выбрать игру →</button><button class="secondary" onclick="scrollToId('why')">Как это работает</button></div>
+</div>
+<div class="visual"><div class="cube">🎮</div></div>
+</section>
+
+<section id="games" class="section">
+<div class="head"><h2>Популярные игры</h2><span class="muted">Выберите игру</span></div>
+<div class="games">
+<div class="game" onclick="openShop('Free Fire')"><div class="icon">🔥</div><h3>Free Fire</h3><span class="muted">Алмазы</span><span class="arrow">→</span></div>
+<div class="game" onclick="openShop('PUBG Mobile')"><div class="icon">🎯</div><h3>PUBG Mobile</h3><span class="muted">UC</span><span class="arrow">→</span></div>
+<div class="game" onclick="openShop('Roblox')"><div class="icon">🧱</div><h3>Roblox</h3><span class="muted">Robux</span><span class="arrow">→</span></div>
+<div class="game" onclick="openShop('Brawl Stars')"><div class="icon">⭐</div><h3>Brawl Stars</h3><span class="muted">Кристаллы</span><span class="arrow">→</span></div>
+</div>
+</section>
+
+<section id="catalog" class="section">
+<div class="head"><h2>Пример оформления заказа</h2><span class="badge">DEMO</span></div>
+<div class="mockshop"><div class="shopbar"><div><div class="muted">Пополнение</div><h2 id="shopTitle">Free Fire</h2></div><span class="muted">1. Выберите пакет</span></div>
+<div class="packs" id="packs"></div>
+<div class="demoform"><input placeholder="Введите игровой ID"><button class="primary" onclick="toast('Это preview — реальная оплата не подключена')">Продолжить</button></div>
+</div>
+</section>
+
+<section id="why" class="section">
+<div class="head"><h2>Как будет работать</h2></div>
+<div class="features"><div class="feature"><div class="big">⚡</div><b>Выбор</b><p>Пользователь выбирает игру и нужный пакет пополнения.</p></div><div class="feature"><div class="big">💳</div><b>Оплата</b><p>В будущем подключим официальный платёжный сервис.</p></div><div class="feature"><div class="big">📦</div><b>Получение</b><p>Заказ передаётся легальному поставщику или официальному API.</p></div></div>
+</section>
+</main>
+<footer class="wrap"><span>© 2026 GameDrop</span><span>Preview • v0.5</span></footer>
+<div class="toast" id="toast"></div>
+<script>
+const data={"Free Fire":[["100 алмазов",99],["310 алмазов",299],["520 алмазов",499],["1060 алмазов",899]],"PUBG Mobile":[["60 UC",99],["325 UC",499],["660 UC",899],["1800 UC",2199]],"Roblox":[["400 Robux",499],["800 Robux",899],["1700 Robux",1799],["4500 Robux",4499]],"Brawl Stars":[["30 кристаллов",199],["80 кристаллов",499],["170 кристаллов",899],["360 кристаллов",1799]]};
+function scrollToId(id){document.getElementById(id).scrollIntoView({behavior:"smooth"})}
+function openShop(game){document.getElementById("shopTitle").textContent=game;const box=document.getElementById("packs");box.innerHTML="";data[game].forEach((p,i)=>{const b=document.createElement("button");b.className="pack"+(!i?" active":"");b.innerHTML="<b>"+p[0]+"</b><small>Пополнение аккаунта</small><strong>"+p[1]+" ₽</strong>";b.onclick=()=>{document.querySelectorAll(".pack").forEach(x=>x.classList.remove("active"));b.classList.add("active")};box.appendChild(b)});scrollToId("catalog")}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>x.style.display="none",2500)}
+openShop("Free Fire");
+</script>
+</body>
+</html>
